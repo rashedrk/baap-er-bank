@@ -17,25 +17,39 @@ document.getElementById('btn-withdraw').addEventListener('click',function () {
     const withdrawField = document.getElementById('withdraw-field');
     const newWithdrawAmountString = withdrawField.value;
     const newWithdrawAmount = parseFloat(newWithdrawAmountString);
+    
+    // step 7 
+    withdrawField.value = '';
+
+    // checks if input is a number 
+    if (isNaN(newWithdrawAmount)) {
+        alert('please input a valid number');
+        return;
+    }
 
     // step 3 
     const withdrawTotalElement = document.getElementById('withdraw-total');
     const previousWithdrawTotalString = withdrawTotalElement.innerText;
     const previousWithdrawTotal = parseFloat(previousWithdrawTotalString);
 
-    // step 4 
-    const currentWithdrawTotal = previousWithdrawTotal + newWithdrawAmount;
-    withdrawTotalElement.innerText = currentWithdrawTotal;
-
+    
     // step 5 
     const balanceTotalElement = document.getElementById('balance-total');
     const previousBalanceTotalString = balanceTotalElement.innerText;
     const previousBalanceTotal = parseFloat(previousBalanceTotalString);
+    
+    // checks if input amount is grater than balance
+    if (newWithdrawAmount > previousBalanceTotal) {
+        alert('not enough money');
+        return
+    }
+
+    // step 4 
+    const currentWithdrawTotal = previousWithdrawTotal + newWithdrawAmount;
+    withdrawTotalElement.innerText = currentWithdrawTotal;
 
     // step 6 
     const currentBalanceTotal = previousBalanceTotal - newWithdrawAmount;
     balanceTotalElement.innerText = currentBalanceTotal;
 
-    // step 7 
-    withdrawField.value = '';
 })
